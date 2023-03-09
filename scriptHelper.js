@@ -3,7 +3,7 @@ require('isomorphic-fetch');
 
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
    // Here is the HTML formatting for our mission target div.
-   missionTarget = document.getElementById("missionTarget");
+   let missionTarget = document.getElementById("missionTarget");
    missionTarget.innerHTML = `
         <h2>Mission Destination</h2>
             <ol>
@@ -35,12 +35,12 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     let fuelStatus = document.getElementById("fuelStatus");
     let cargoStatus = document.getElementById("cargoStatus");
     let launchStatus = document.getElementById("launchStatus")
-    if (validateInput(pilot) === "Empty" || validateInput(copilot) === "Empty" || validateInput(fuelLevel) === "Empty" || validateInput(cargoLevel) === "Empty.") {
-        alert("All fields required.");
+    if (validateInput(pilot) === "Empty" || validateInput(copilot) === "Empty" || validateInput(fuelLevel) === "Empty" || validateInput(cargoLevel) === "Empty") {
+        alert("All fields are required!");
     } else if (validateInput(fuelLevel) === "Not a Number" || validateInput(cargoLevel) === "Not a Number") {
-        alert("Please enter a valid number.");
+        alert("Make sure to enter valid information for each field!");
     } else if (validateInput(pilot) === "Is a Number" || validateInput(copilot) === "Is a Number") {
-        alert("Please enter a valid name.");
+        alert("Make sure to enter valid information for each field!");
     } else {
         pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`;
         copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`;
@@ -73,7 +73,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 async function myFetch() {
     let planetsReturned;
     planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
-        if (response >= 400) {
+        if (response.status >= 400) {
             throw new Error("Something went wrong with the response.");
         } else {
             return response.json();
